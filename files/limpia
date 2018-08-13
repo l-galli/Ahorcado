@@ -1,0 +1,27 @@
+
+rae = open("rae", encoding="utf8")
+list_rae = rae.readlines()
+rae.close()
+
+f = open("rae2", "w+")
+i = 0
+while i < len(list_rae):
+	solucion = list_rae[i]
+	solucion.lower()
+	solucion = solucion.replace("á", "a")
+	solucion = solucion.replace("é", "e")
+	solucion = solucion.replace("í", "i")
+	solucion = solucion.replace("ó", "o")
+	solucion = solucion.replace("ú", "u")
+
+	solucion = solucion.replace("Á", "A")
+	solucion = solucion.replace("É", "E")
+	solucion = solucion.replace("Í", "I")
+	solucion = solucion.replace("Ó", "O")
+	solucion = solucion.replace("Ú", "U")
+
+	solucion = solucion.replace("ñ", "n")
+	solucion = solucion.replace("Ñ", "n")
+	f.write(solucion)
+	i = i+1
+f.close()
