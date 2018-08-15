@@ -38,8 +38,9 @@ def estado_actual(solucion, letras_adivinadas, letras_usadas, restantes_intentos
 
 def ahorcado():
 	#Abre base de datos y crea una lista a partir de eso
-	rae = open("files/rae", encoding="utf8")
-	rae = rae.readlines()
+	rae_file = open("files/rae", encoding="utf8")
+	rae = rae_file.readlines()
+	rae_file.close()
 	indice = random.randint(0, len(rae))
 	solucion = ""
 	
@@ -132,6 +133,8 @@ def ahorcado():
 		arriesgue = input("Arriesgá una palabra, o presioná Enter para terminar ")
 		gano = (solucion == arriesgue) 
 
+		
+
 		if gano:
 			os.system('cls' if os.name == 'nt' else 'clear')
 			print("Ganaste, felicitaciones!")
@@ -152,6 +155,24 @@ def ahorcado():
 
 	os.system('cls' if os.name == 'nt' else 'clear')
 	
+	puntaje = open("files/puntaje", "r+", encoding="utf8")
+	points = puntaje.readlines()
+	ganadas = int(points[0])
+	perdidas = int(points[1])
+	
+	if gano:
+		ganadas = ganadas + 1
+	else:
+		perdidas = perdidas + 1
+	puntaje.truncate(0)
+	puntaje.close()
+	puntaje = open("files/puntaje", "w+", encoding="utf8")
+	puntaje.write(str(ganadas) + "\n")
+	puntaje.write(str(perdidas))
+	print("Ganadas: %s" % int(points[0]))
+	print("Perdidas: %s \n" % int(points[1]))
+
+
 	res2 = input("Jugar de vuelta? [s/n] ")
 	return res2
 
